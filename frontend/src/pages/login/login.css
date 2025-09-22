@@ -1,0 +1,22 @@
+
+
+
+.lInput{
+    height: 30px;
+    padding: 10px;
+}
+
+.lButton{
+    border: none;
+    padding: 10px 20px;
+    background-color: #0071c2;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.lButton:disabled{
+    background-color: #0071c2;
+    cursor: pointer;
+}

@@ -1,4 +1,6 @@
 import Hotel from "../models/Hotel.js";
+import Room from "../models/Room.js";
+
 export const createHotel = async (req, res, next) => {
   const newHotel = new Hotel(req.body);
 
@@ -44,7 +46,7 @@ export const getHotels = async (req, res, next) => {
     // Extract filters limit, featured,
     const { limit, featured, min, max, ...others } = req.query;
     // featured: featured,
-    const hotels = await Hotel.find({ ...others, cheapestPrice: {$gt: min || 1, $lt: max || 999} }).limit(limit);
+    const hotels = await Hotel.find({ ...others, cheapestPrice: { $gt: min || 1, $lt: max || 999 } }).limit(limit);
     // const hotels = await Hotel.find({ ...others, featured: featured, cheapestPrice: { $gt: min || 1, $lt: max || 999 } }).limit(limit);
     // const hotels = await Hotel.find(req.query).limit(req.query.limit);
     // update
@@ -77,7 +79,7 @@ export const getByType = async (req, res, next) => {
     const resortCount = await Hotel.countDocuments({ type: "resort" })
     const villaCount = await Hotel.countDocuments({ type: "villa" })
     const cabinCount = await Hotel.countDocuments({ type: "cabin" })
-    
+
     res.status(200).json([
       { type: "hotel", count: hotelCount },
       { type: "apartment", count: apartmentCount },
@@ -87,5 +89,17 @@ export const getByType = async (req, res, next) => {
     ]);
   } catch (err) {
     next(error);
+  }
+}
+
+export const getHotelRooms = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id)
+    const list = await Promise.all(hotel.rooms.map(room => {
+      return Room.findById(room);
+    }))
+    res.status(200).json(list)
+  } catch (err) {
+    next(err)
   }
 }
