@@ -1,16 +1,17 @@
 
-.lContainer{
+
+.lContainer {
     display: flex;
     justify-content: column;
     gap: 10px;
 }
 
-.lInput{
+.lInput {
     height: 30px;
     padding: 10px;
 }
 
-.lButton{
+.lButton {
     border: none;
     padding: 10px 20px;
     background-color: #0071c2;
@@ -20,7 +21,7 @@
     border-radius: 5px;
 }
 
-.lButton:disabled{
+.lButton:disabled {
     background-color: #0071c2;
     cursor: pointer;
 }
